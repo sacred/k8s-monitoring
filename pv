@@ -1,0 +1,54 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: monitoring
+provisioner: ghc98.com/nfs
+reclaimPolicy: Retain
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: monitoring-pv
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: monitoring
+  mountOptions:
+  - hard
+  - nfsvers=4.1
+  nfs:
+    path: /app/nfs/monitoring
+    server: 192.168.1.254
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ghc98
+provisioner: ghc98.com/nfs
+reclaimPolicy: Retain
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ghc98-pv
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: ghc98
+  mountOptions:
+  - hard
+  - nfsvers=4.1
+  nfs:
+    path: /app/nfs/ghc98
+    server: 192.168.1.254
