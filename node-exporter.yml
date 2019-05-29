@@ -31,20 +31,3 @@ spec:
       - effect: NoSchedule
         operator: Exists
 
-#---
-#kind: Service
-#apiVersion: v1
-#metadata:
-#  namespace: monitoring
-#  name: node-exporter-service
-#  labels:
-#    app: node-exporter
-#spec:
-#  ports:
-#  - name: http
-#    port: 9100
-#    nodePort: 30910
-#    protocol: TCP
-#  type: NodePort
-#  selector:
-#    app: node-exporter
