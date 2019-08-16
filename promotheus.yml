@@ -14,7 +14,7 @@ spec:
   - ReadWriteMany
   resources:
     requests:
-      storage: 2Gi
+      storage: 5Gi
   storageClassName: monitoring
 
 ---
@@ -229,7 +229,7 @@ spec:
     spec:
       containers:
       - name: prometheus-server
-        image: prom/prometheus:v2.2.1
+        image: prom/prometheus
         imagePullPolicy: IfNotPresent
         env:
         - name: TZ
@@ -237,6 +237,7 @@ spec:
         args:
         - "--config.file=/etc/prometheus/prometheus.yml"
         - "--storage.tsdb.path=/prometheus/"
+        - "--storage.tsdb.retention=7d"
         volumeMounts:
         - name: prometheus-config-volume
           mountPath: /etc/prometheus/
